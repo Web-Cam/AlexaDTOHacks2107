@@ -58,8 +58,5 @@ var handlers = {
         console.log("UNHANDLED");
         //If the users file  made no sense at all, then output this
                 this.emit(':tell', ' Sorry I was unable to find that file ');
-            }
-        });
     }
 };
-
