@@ -40,7 +40,7 @@ var handlers = {
         if (fileGet == null || fileGet === "undefined" || fileGet == '') { //Alexa doesnt understand the word, so respond with IDK.
             this.emit('Unhandled'); //send to unhandled handler
         } else {
-            this.emit('your file is ', Getfile)
+            this.emit(':ask','your file is');
         // File server function logic goes here!!!
     }},
     'AMAZON.HelpIntent': function() {
