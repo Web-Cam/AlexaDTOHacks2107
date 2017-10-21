@@ -41,7 +41,7 @@ var handlers = {
             this.emit('Unhandled'); //send to unhandled handler
         } else {
             
-        // File server function goes here!!!
+        // File server function logic goes here!!!
     },
     'AMAZON.HelpIntent': function() {
         var speechOutput = this.t("HELP_MESSAGE");
@@ -56,7 +56,7 @@ var handlers = {
     },
     'Unhandled': function() {
         console.log("UNHANDLED");
-        //If the users sentence really made no sense at all, then just choose a random word to finish with
+        //If the users file  made no sense at all, then output this
                 this.emit(':tell', ' Sorry I was unable to find that file ');
             }
         });
