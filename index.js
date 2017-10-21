@@ -1,13 +1,12 @@
 /*
-	Template/ Example code: Benjamin Snoha /
-	Revision : Web-Cam
+	Code By : Cameron Weber, Yogi Schlesinger
 	Title: Rhyme Gen
 */
 
 'use strict';
 var Alexa = require("alexa-sdk");
 var request = require('request');
-var APP_ID = 'amzn1.ask.skill.9e9acde3-0a41-4c7e-a9b2-aea5730bbbc8';
+var APP_ID = 'amzn1.ask.skill.9e9acde3-0a41-4c7e-a9b2-aea5730bbbc8';//enter app Id here 
 
 var languageStrings = {
     "en": {
@@ -31,15 +30,15 @@ exports.handler = function(event, context, callback) {
 
 var handlers = {
     'LaunchRequest': function() {
-        this.emit(':ask', "Welcome to Rhyme Game. Here are the rules, you say a word and I will find a rhyme. If you cant think of a rhyme or respond in 5 seconds you lose!, Now begin!");
+        this.emit(':ask', "Welcome to Revit Finder, Say your filename, and I will tell you infomation about it");
         this.emit('GetNewWordIntent');
     },
 	'EndGameUser': function() {
         this.emit(':tell', "I win! Better luck next time"); // Pulled ending words instead of calling unhandled, now call this instead.. Put call words in utterances
     },
-    'GetNewWordIntent': function() {
+    'GetFile': function() {
         var seconds = 5;
-        var wordInput = this.event.request.intent.slots.customWord.value;
+        var wordInput = this.event.request.intent.slots.filename.value;
 
         if (wordInput == null || wordInput === "undefined" || wordInput == '') { //Alexa doesnt understand the word, so User loses.
             this.emit('Unhandled'); //send to unhandled handler
