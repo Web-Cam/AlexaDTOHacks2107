@@ -42,7 +42,7 @@ var handlers = {
         } else {
             this.emit('your file is ', Getfile)
         // File server function logic goes here!!!
-    },
+    }},
     'AMAZON.HelpIntent': function() {
         var speechOutput = this.t("HELP_MESSAGE");
         var reprompt = this.t("HELP_REPROMPT");
