@@ -1,5 +1,5 @@
 {
-  "name": "Rhyme Game",
+  "name": "DTO hacks",
   "version": "1.0.0",
   "description": "An alexa app That plays a rhyming game with you.",
   "main": "index.js",
