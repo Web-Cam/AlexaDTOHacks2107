@@ -1,5 +1,5 @@
 {
-  "name": "DTO hacks",
+  "name": "Revit Finder",
   "version": "1.0.0",
   "description": "An alexa app that grabs a .rvt file and then tells you some information on it.",
   "main": "index.js",
