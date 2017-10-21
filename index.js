@@ -1,6 +1,6 @@
 /*
 	Code By : Cameron Weber, Yogi Schlesinger
-	Title: Rhyme Gen
+	Title: Revit Finder
 */
 
 'use strict';
@@ -11,8 +11,8 @@ var APP_ID = 'amzn1.ask.skill.9e9acde3-0a41-4c7e-a9b2-aea5730bbbc8';//enter app 
 var languageStrings = {
     "en": {
         "translation": {
-            "SKILL_NAME": "Rhyme Generator",
-            "HELP_MESSAGE": "If you say any word, I will rhyme it, or, you can say exit, but why would you... What can I help you with?",
+            "SKILL_NAME": "Revit finder",
+            "HELP_MESSAGE": "Tell me what file you would like information about ",
             "HELP_REPROMPT": "What can I help you with?",
             "STOP_MESSAGE": "Goodbye!"
         }
@@ -31,37 +31,17 @@ exports.handler = function(event, context, callback) {
 var handlers = {
     'LaunchRequest': function() {
         this.emit(':ask', "Welcome to Revit Finder, Say your filename, and I will tell you infomation about it");
-        this.emit('GetNewWordIntent');
+        this.emit('getFile');//goes to the get file
     },
-	'EndGameUser': function() {
-        this.emit(':tell', "I win! Better luck next time"); // Pulled ending words instead of calling unhandled, now call this instead.. Put call words in utterances
-    },
+	
     'GetFile': function() {
-        var seconds = 5;
-        var wordInput = this.event.request.intent.slots.filename.value;
+        var fileGet = this.event.request.intent.slots.filename.value;
 
-        if (wordInput == null || wordInput === "undefined" || wordInput == '') { //Alexa doesnt understand the word, so User loses.
+        if (fileGet == null || fileGet === "undefined" || fileGet == '') { //Alexa doesnt understand the word, so respond with IDK.
             this.emit('Unhandled'); //send to unhandled handler
         } else {
-            // Create speech output
-            getNextWord(wordInput, (speechOutput) => {
-                if (speechOutput == '') {
-                    this.emit('Unhandled');
-                } else {
-                    //this.emit(':tellWithCard', speechOutput, this.t("SKILL_NAME"), speechOutput);
-                    this.emit(':ask', speechOutput );
-                    // Start the five-second timer
-                    var timer = setInterval(function(){
-                        seconds--;
-                        if (seconds <= 0) {
-                            clearInterval(timer);
-                            //this.emit(':tell', ' You ran out of time I win!'); //Timers not supported.. 
-				//Great https://forums.developer.amazon.com/questions/53138/we-cant-create-timers-from-within-a-skill-do-we-ha.html
-                        }
-                    }, 1000);
-                }
-            });
-        }
+            
+        // File server function goes here!!!
     },
     'AMAZON.HelpIntent': function() {
         var speechOutput = this.t("HELP_MESSAGE");
@@ -76,50 +56,10 @@ var handlers = {
     },
     'Unhandled': function() {
         console.log("UNHANDLED");
-        //If the users sentence really made no sense at all, then just choose a random word to finish with.
-        getNextWord("yellow", (speechOutput) => {
-            if (speechOutput == '') {
-                this.emit('Unhandled');
-            } else {
-                this.emit(':tell', ' There are no rhymes for that word ....You Lose I win .... Try Again? ');
+        //If the users sentence really made no sense at all, then just choose a random word to finish with
+                this.emit(':tell', ' Sorry I was unable to find that file ');
             }
         });
     }
 };
 
-//Gets the rhyme for a single word
-function getNextWord(contextWord, _callback) {
-    var options = {
-        url: 'https://api.datamuse.com/words?rel_rhy=' + contextWord + '&lc=' + contextWord + '&max=15' // if no max is set, it tends to return off topic words like boat rhymes with right to vote.
-    };
-
-    request(options, (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-            //Get the info
-            var info = JSON.parse(body);
-            var potentialWord = [];
-
-            //Search it to make sure the syllable count is the same
-            if (info) {
-                for (var i = 0; i < info.length; i++) {
-                    //We found a rhyme, add to potential's array
-                    potentialWord.push(info[i].word);
-                }
-
-                //Return random one from list of potential rhymes
-                if (_callback) {
-                    var randIndex = Math.floor(Math.random() * (potentialWord.length - 1));
-                    if (potentialWord[randIndex]) {
-                        return _callback(potentialWord[randIndex]);
-                    }
-                }
-            }
-        } else {
-            console.log("Error making request: " + error);
-        }
-
-        if (_callback) {
-            return _callback('');
-        }
-    });
-}
