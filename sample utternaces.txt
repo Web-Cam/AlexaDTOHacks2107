@@ -1,1 +1,7 @@
 GetFile {filename}
+GetFile I would like infomation on {filename}
+GetFile Find infomation on {filename}
+GetFile I need all infomation on the {filename}
+GetFile Pull up {filename} infomation
+GetFile Get infomation on {filename}
+GetFile Look up {filename} infomation
