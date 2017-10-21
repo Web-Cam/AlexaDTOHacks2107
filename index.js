@@ -5,13 +5,12 @@
 
 'use strict';
 var Alexa = require("alexa-sdk");
-var request = require('request');
-var APP_ID = 'amzn1.ask.skill.9e9acde3-0a41-4c7e-a9b2-aea5730bbbc8';//enter app Id here 
+var APP_ID = 'amzn1.ask.skill.31ff6063-80cb-4b93-935f-a7f7761facf2';//enter app Id here 
 
 var languageStrings = {
     "en": {
         "translation": {
-            "SKILL_NAME": "Revit finder",
+            "SKILL_NAME": "DTOHACKS",
             "HELP_MESSAGE": "Tell me what file you would like information about ",
             "HELP_REPROMPT": "What can I help you with?",
             "STOP_MESSAGE": "Goodbye!"
@@ -20,7 +19,7 @@ var languageStrings = {
 };
 
 
-exports.handler = function(event, context, callback) {
+exports.handler = function(event, context) {
     var alexa = Alexa.handler(event, context);
     alexa.APP_ID = APP_ID;
     alexa.resources = languageStrings;
@@ -40,7 +39,7 @@ var handlers = {
         if (fileGet == null || fileGet === "undefined" || fileGet == '') { //Alexa doesnt understand the word, so respond with IDK.
             this.emit('Unhandled'); //send to unhandled handler
         } else {
-            this.emit(':ask','your file is');
+            this.emit(':ask',"your file is");
         // File server function logic goes here!!!
     }},
     'AMAZON.HelpIntent': function() {
