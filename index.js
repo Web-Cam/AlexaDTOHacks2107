@@ -7,9 +7,9 @@
 var Alexa = require("alexa-sdk");
 var APP_ID = 'amzn1.ask.skill.31ff6063-80cb-4b93-935f-a7f7761facf2';//enter app Id here 
 var date = "9/10/17";
-var projectNum = "432784237" //These will be dynamic Via backend
+var projectNum = "43237"
 var Size = "50"
-//Put more vars here if needed
+//Put more vars here 
 var languageStrings = {
     "en": {
         "translation": {
@@ -32,11 +32,11 @@ exports.handler = function(event, context) {
 
 var handlers = {
     'LaunchRequest': function() {
-        this.emit(':ask', "Welcome to Revit Finder, Say your filename, and I will tell you infomation about it");
+        this.emit(':ask', "Welcome to Revvit Finder, Say your filename, and I will tell you information about it Or say give me a list of files");
         this.emit('getFile');//goes to the get file
     },
 	'FileList': function() {
-        this.emit(':ask', "Here are some of your files" + " ........... Test.RVT" + " ........ Project.rvt"+ " ......... Construction.rvt");
+        this.emit(':ask', "Here are some of your files" + " ........... Test.RVT" + " ........ Project.rvt"+ " ......... Construction.rvt " + ".....Say any file name to continue ...... or exit to exit ");
         //this.emit(':ask','Test.rvt <break time="1s"/> Apple <break time="1s"/> Project.RVT');//goes to the get file
     },
 	
@@ -46,7 +46,7 @@ var handlers = {
         if (fileGet == null || fileGet === "undefined" || fileGet == '') { //Alexa doesnt understand the word, so respond with IDK.
             this.emit('Unhandled'); //send to unhandled handler
         } else {
-            this.emit(':ask',"your file is ..... "+fileGet + ".....Size is " + Size +".........Date last accessed is....... " + date + " Project Number is ......" + projectNum );
+            this.emit(':tell',"your file is ..... "+fileGet + ".....Size is " + Size + ".....Megabytes" + ".........Date last accessed is....... " + date + " Project Number is ......" + projectNum );
 			this.emit('FileInfo');
         // File server function logic goes here!!!
     }},
