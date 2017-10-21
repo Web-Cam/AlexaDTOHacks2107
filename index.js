@@ -7,9 +7,9 @@
 var Alexa = require("alexa-sdk");
 var APP_ID = 'amzn1.ask.skill.31ff6063-80cb-4b93-935f-a7f7761facf2';//enter app Id here 
 var date = "9/10/17";
-var projectNum = "432784237"
+var projectNum = "432784237" //These will be dynamic Via backend
 var Size = "50"
-//Put more vars here 
+//Put more vars here if needed
 var languageStrings = {
     "en": {
         "translation": {
